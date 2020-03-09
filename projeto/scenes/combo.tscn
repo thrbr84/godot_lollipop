@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/font/walibi-holland-webfont.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scripts/combo.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 100
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "init"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
+}
+
+[node name="nodecombo" type="Node2D"]
+
+[node name="combo" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -248.0
+margin_top = -168.0
+margin_right = 251.0
+margin_bottom = 177.0
+custom_fonts/font = SubResource( 1 )
+text = "0x"
+align = 1
+valign = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="anim" type="AnimationPlayer" parent="combo"]
+autoplay = "init"
+playback_speed = 3.0
+anims/init = SubResource( 2 )
+[connection signal="animation_finished" from="combo/anim" to="combo" method="_on_anim_animation_finished"]

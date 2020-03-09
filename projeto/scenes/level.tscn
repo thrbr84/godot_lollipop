@@ -1,0 +1,139 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scripts/level.gd" type="Script" id=1]
+[ext_resource path="res://assets/backgrounds/bg_3.jpg" type="Texture" id=2]
+[ext_resource path="res://assets/buttons/but_exit.png" type="Texture" id=3]
+[ext_resource path="res://assets/font/walibi-holland-webfont.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/audio/right.ogg" type="AudioStream" id=5]
+[ext_resource path="res://assets/audio/win.ogg" type="AudioStream" id=7]
+[ext_resource path="res://assets/audio/game_over.ogg" type="AudioStream" id=8]
+[ext_resource path="res://assets/msg_box.png" type="Texture" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 70
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 100
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 60
+font_data = ExtResource( 4 )
+
+[node name="level" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="container" type="HBoxContainer" parent="ui"]
+margin_left = 30.0
+margin_top = 50.0
+margin_right = 1890.0
+margin_bottom = 152.0
+rect_min_size = Vector2( 1860, 102 )
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="control" type="Control" parent="ui/container"]
+margin_left = 1762.0
+margin_right = 1860.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 98, 102 )
+
+[node name="btnExit" type="TouchScreenButton" parent="ui/container/control"]
+scale = Vector2( 2, 2 )
+normal = ExtResource( 3 )
+
+[node name="timer" type="Label" parent="ui"]
+margin_left = 40.9084
+margin_top = 39.9084
+margin_right = 338.908
+margin_bottom = 149.908
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "00:00"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="points" type="Label" parent="ui"]
+margin_left = 476.0
+margin_top = 40.0
+margin_right = 1413.0
+margin_bottom = 169.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="msg_box" type="TouchScreenButton" parent="ui"]
+visible = false
+normal = ExtResource( 9 )
+
+[node name="title" type="Label" parent="ui/msg_box"]
+margin_left = 668.0
+margin_top = 372.0
+margin_right = 1258.0
+margin_bottom = 708.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="color" type="ColorRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 1920, 1080 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="background" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.490196 )
+rect_min_size = Vector2( 1920, 1080 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="combox" type="Position2D" parent="."]
+position = Vector2( 1261.42, 100.914 )
+
+[node name="cards" type="Node2D" parent="."]
+position = Vector2( 0, 162.653 )
+
+[node name="sfxRight" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="sfxWin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="timer" type="Timer" parent="."]
+autostart = true
+
+[node name="sfxGameover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+[connection signal="pressed" from="ui/container/control/btnExit" to="." method="_on_btnExit_pressed"]
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,160 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/cards/card_spritesheet.png" type="Texture" id=1]
+[ext_resource path="res://scripts/card.gd" type="Script" id=2]
+[ext_resource path="res://assets/buttons/but_start.png" type="Texture" id=3]
+[ext_resource path="res://assets/audio/card.ogg" type="AudioStream" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/path = NodePath("back:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ), Vector2( 1e-05, 2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("back:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 159.778, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("front:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 2 ), Vector2( 1e-05, 2 ), Vector2( 2, 2 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("front:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 158.271, 0 ), Vector2( 158.271, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("anim:playback_speed")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 4.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/path = NodePath("back:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -116.475, 386.697 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("back:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("back:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 34.9637, 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("anim:playback_speed")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.5 ]
+}
+
+[node name="card" type="Control"]
+rect_min_size = Vector2( 320, 504 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="back" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -116.475, 386.697 )
+rotation = 0.610232
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+centered = false
+vframes = 2
+hframes = 9
+frame = 17
+
+[node name="front" type="Sprite" parent="."]
+position = Vector2( 158.271, 0 )
+scale = Vector2( 1e-05, 2 )
+texture = ExtResource( 1 )
+centered = false
+vframes = 2
+hframes = 9
+
+[node name="touch" type="TouchScreenButton" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+scale = Vector2( 0.817011, 5.56668 )
+normal = ExtResource( 3 )
+
+[node name="anim" type="AnimationPlayer" parent="."]
+playback_speed = 1.5
+anims/show = SubResource( 1 )
+anims/start = SubResource( 2 )
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+[connection signal="pressed" from="touch" to="." method="_on_touch_pressed"]
